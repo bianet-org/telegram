@@ -1,0 +1,25 @@
+name: Send Bianet News
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"  # Her 15 dakikada bir
+
+jobs:
+  send_news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository'yi Checkout Et
+        uses: actions/checkout@v3
+
+      - name: Python Ortamını Ayarla
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Gerekli Paketleri Kur
+        run: |
+          pip install feedparser requests
+
+      - name: News Gönderme Scriptini Çalıştır
+        run: python send_news.py
